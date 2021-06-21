@@ -2,22 +2,21 @@ module.exports = class Entity {
     // class methods
     constructor(field, x, y) {
         this.field = field
-        //Manca il controllo se presente altra entità
-        let test = true
         
+        //Controllo se presente altra entità alle coordinate di creazione
+        //TODO ostituire con ciclo for e break
+        let test = true
         this.field.entities.forEach(element => {
             if(element.x === x && element.y === y){test = false}
         })
 
+        //Controllo se le coordinate sono dentro al campo
         if(x >= 0 && x < this.field.w && y >= 0 && y < this.field.h && test === true){
             this.x = x
             this.y = y
         }
         else{
-            throw error = {
-                id: 25,
-                message: "Non puoi creare entity fuori dal campo o in una cella piena"
-            }
+            throw new Error()
         }
         
         this.field.entities.push({x : this.x, y: this.y})
@@ -56,6 +55,7 @@ module.exports = class Entity {
         this.x = x
         this.y = y
         this.countMoves += 1
+        
         //Ridisegno il campo
         this.field.draw()
       }
