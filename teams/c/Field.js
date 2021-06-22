@@ -1,7 +1,5 @@
-module.exports = Field
-
 class Field {
-    constructor(h, w, maxMoves) {
+    constructor(w, h, maxMoves) {
         this.h = h
         this.w = w
         this.maxMoves = maxMoves
@@ -9,15 +7,22 @@ class Field {
     }
 
     draw() {
-        let res = (" ".repeat(this.w) + "\n").repeat(this.h)
+        let res = []
+        for (let i = 0; i < (this.w + 1) * this.h; i++) {
+            if (i % (this.w + 1) == 0) res.push('\n')
+            else res.push(" ")
+        }
         this.entities.forEach(element => {
-            let index = element.x + element.y * (this.w + 1)
-            res[index] = '.'
-        });
-        return res
+            let index = (element.x + 1) + element.y * (this.w + 1)
+            res[index] = "."
+        })
+        res.shift() // remove first element
+        return res.join("") + "\n"
     }
 
-    count_entities() {
+    countEntities() {
         return this.entities.length
     }
 }
+
+module.exports = Field
