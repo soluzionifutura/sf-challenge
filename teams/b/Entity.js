@@ -2,22 +2,23 @@ module.exports = class Entity {
     // class methods
     constructor(field, x, y) {
         this.field = field
-        //Manca il controllo se presente altra entità
-        let test = true
         
-        this.field.entities.forEach(element => {
-            if(element.x === x && element.y === y){test = false}
-        })
+        //Already exist an tity at creation choords?
+        let test = true
+        for(let i=0; i<this.field.entities.length; i++){
+            if(this.field.entities[i].x === x && this.field.entities[i].y === y){
+                test = false
+                break
+            }
+        }
 
+        //Are choords into the field or out of field
         if(x >= 0 && x < this.field.w && y >= 0 && y < this.field.h && test === true){
             this.x = x
             this.y = y
         }
         else{
-            throw error = {
-                id: 25,
-                message: "Non puoi creare entity fuori dal campo o in una cella piena"
-            }
+            throw new Error()
         }
         
         this.field.entities.push({x : this.x, y: this.y})
@@ -25,38 +26,43 @@ module.exports = class Entity {
       }
 
     move(direction) {
-        let y = this.y
-        let x = this.x
-        //Aggiorno coordinate in base alla direzione
-        if(direction === 0){
-            y -= 1
-            if(y < 0){y += 1}
-        }
-        else if(direction === 1){
-            x += 1
-            if(x > this.field.w){x -= 1}
-        }
-        else if(direction === 2){
-            y += 1
-            if(y > this.field.h){y -= 1}
-        }
-        else if(direction === 3){
-            x -= 1
-            if(x < 0){x += 1}
+        let newy = this.y
+        let newx = this.x
+        
+        //maxMoves control
+        if(this.countMoves >= this.field.maxMoves){
+            return "Movimenti terminati"
         }
         
-        //Aggiorno coordinate nel campo
+        //Updating choords using directio control
+        if(direction === 0){
+            newy -= 1
+            if(newy < 0){newy += 1}
+        }
+        else if(direction === 1){
+            newx += 1
+            if(newx >= this.field.w){newx -= 1}
+        }
+        else if(direction === 2){
+            newy += 1
+            if(newy >= this.field.h){newy -= 1}
+        }
+        else if(direction === 3){
+            newx -= 1
+            if(newx < 0){newx += 1}
+        }
+        
+        //Updating choords in field
         this.field.entities = this.field.entities.map( e => {
           if(e.x === this.x && e.y === this.y){
-            e.x = x
-            e.y = y  
+            e.x = newx
+            e.y = newy  
           }
           return e
         })
-        this.x = x
-        this.y = y
+        this.x = newx
+        this.y = newy
         this.countMoves += 1
-        //Ridisegno il campo
-        this.field.draw()
+    
       }
   }
