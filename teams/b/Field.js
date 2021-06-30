@@ -7,13 +7,15 @@
     this.entities = []
    }
   draw() { 
+    let row = ""
     for(let i = 0; i<this.h; i++){
       for(let j = 0; j<this.w; j++){
         /*const entity = this.#findEntities(j, i)
-        if(entity) console.log(".")
-        else console.log("x")*/
-        console.log("[]")
+        if(entity) row+="."
+        else row+=" "*/
+        row+="[]"
       }
+      console.log(row)
       console.log("\n")
     }
    }

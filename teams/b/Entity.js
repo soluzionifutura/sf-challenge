@@ -14,10 +14,7 @@ module.exports = class Entity {
             this.y = y
         }
         else{
-            throw error = {
-                id: 25,
-                message: "Non puoi creare entity fuori dal campo o in una cella piena"
-            }
+            throw new Error()
         }
         
         this.field.entities.push({x : this.x, y: this.y})
