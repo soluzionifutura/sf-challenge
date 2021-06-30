@@ -1,0 +1,24 @@
+{
+  "name": "sf-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "err-code": "^3.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soluzionifutura/sf-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soluzionifutura/sf-challenge/issues"
+  },
+  "homepage": "https://github.com/soluzionifutura/sf-challenge#readme"
+}
