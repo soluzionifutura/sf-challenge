@@ -3,27 +3,24 @@ class Field{
         this.w = w
         this.h = h
         this.maxMoves = maxMoves
-
+        
         this.entities = []
     }
 
     draw(){
         let str = ""
         
-        for(let i = 0; i < this.h; i++){
-            for(let j = 0; j < this.w; j++){
+        for(let y = 0; y < this.h; y++){
+            
+            for(let x = 0; x < this.w; x++){
                 let bool = false
-                for(let k = 0; k < this.entities.length; k++){
-                    if(this.entities[k].x === j && this.entities[k].y === i){
-                        str += "."
-                        bool = true
-                        break
-                    }
+                if (this.getEntity(x,y)) {
+                    bool = true
+                    str += "."
                 }
-                if(!bool){
-                    str += " "
-                }
+                if (!bool) str += " "
             }
+            
             str += "\n"
         }
         return str
@@ -31,6 +28,21 @@ class Field{
 
     countEntities(){
         return this.entities.length
+    }
+
+    getEntity(x, y, self = null){
+        for(let k = 0; k < this.entities.length; k++){
+            if(this.entities[k].x === x && this.entities[k].y === y && this.entities[k] !== self){
+                return this.entities[k]
+            }
+        }
+    }
+
+    checkCoords(x, y){
+        if (x < 0 || x >= this.w || y < 0 || y >= this.h) {
+            return false
+        }
+        return true
     }
 }
 

@@ -15,5 +15,3 @@ player.move(1)
 console.log(field.draw())
 player.move(1)
 console.log(field.draw())
-
-console.log(field.countEntities())
